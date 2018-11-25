@@ -69,6 +69,17 @@ function initialize(ni: int, idi: String, cni: String, coli: Number, pofix: Stri
 
 function iconLoaded(e: Event): void {
 
+if(id==cfg[110][0]){
+  rt=rt*1.5;
+  Icon.y-=13;
+  var gua: Guajian = new Guajian();
+  gua.width = 3 * rt;
+  gua.height = 3 * rt;
+  gua.x = Number(cfg[23][0]) - 1.5*rt;
+  gua.y = Number(cfg[23][1]) - 0.5*rt;
+  Icon.addChildAt(gua, 0);
+}
+
 	var image: Bitmap = new Bitmap(e.target.content.bitmapData);
 	image.width = 2 * rt;
 	image.height = 2 * rt;
@@ -87,6 +98,7 @@ function iconLoaded(e: Event): void {
 
 		image.mask = maskCircle; // Applies the mask
 	}
+
 }
 
 
@@ -155,7 +167,7 @@ function updatey(i: int, scale: Number): void {
 		cvalue.x = Number(cfg[40][1]);
 	}
 
-	float.x = cvalue.x + 145;
+	float.x = cvalue.x + Number(cfg[106][0]);
 
 	if(cfg[31][1] == "R") {
 		Icon.x = rec.x + rec.width;
@@ -216,8 +228,21 @@ function colfun(speed: Number): int {
 
 function popf(cni: String, numi: Number, navi:String): void {
   ftimer=0;
-	float.cn.text = clearDelimeters("av"+navi+"-"+cni);
-	float.num.text = (numi/10000).toFixed(1).toString()+" 万";
+  if(clearDelimeters(navi)==""){
+      float.cn.text = clearDelimeters(cni);
+    }else{
+      float.cn.text = clearDelimeters("av"+navi+"-"+cni);
+    }
+
+  if(numi<=0.0001){
+    float.floater2.visible=false;
+    float.num.text ="";
+  }
+  else{
+    float.floater2.visible=true;
+    float.num.text = (numi/10000).toFixed(1).toString()+" 万";
+  }
+
 	float.alpha = 1;
 	float.addEventListener(Event.ENTER_FRAME, fadeout);
 }
@@ -225,7 +250,7 @@ function popf(cni: String, numi: Number, navi:String): void {
 var ftimer:int;
 function fadeout(event: Event): void {
 
-  if(rank>15){float.visible=false}
+  if(rank>int(cfg[105][0])){float.visible=false}
   else{float.visible=true}
 
   ftimer++;

@@ -201,6 +201,7 @@ function movie(event: Event): void {
 		T++;
 		if(T < da.length) {
 			yeart.text = da[T][0];
+      if(da[T][0]==cfg[39][1]){cfg[39][0]=cfg[39][2];cfg[96][0]=cfg[96][2];}
       if(T>=4){checkfloater(da[T][0])};
 		}
 	}
