@@ -175,7 +175,7 @@ Tcon.addChild(rect);
 
 var lastid: String; // 更新冠军头像
 var Icon: Sprite = new Sprite(); // 冠军头像容器
-addChildAt(Icon, 0);
+addChildAt(Icon, 1); // 20181207不再支持用作背景
 
 
 
