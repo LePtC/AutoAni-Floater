@@ -304,10 +304,20 @@ if(t%2==1){ // 每2帧更新次排序节省计算量…
     var icon: Loader = new Loader();
     icon.contentLoaderInfo.addEventListener(Event.COMPLETE, iconLoaded);
     icon.load(new URLRequest(bar1.id + pofix));
+
+    curbub = new CurBub();
+    curbub.loadp(bar1.id + pofix);
+    curbub.x=current.x-20;
+    curbub.y=current.y+75-20;
+    Tcon.addChild(curbub);
+
     lastid = bar1.id;
+  }else{
+    curbub.x += Number(cfg[78][1])/2;
   }
 }
 
+var curbub: CurBub;
 
 
 function userfunc(fan: Number, maxf: Number, iflog: Boolean): Number {
@@ -340,9 +350,9 @@ function userheight(bar1:rankBar):Number{
 
 function iconLoaded(e: Event): void {
 
-	var image: Bitmap = new Bitmap(e.target.content.bitmapData);
-	image.x = Number(cfg[97][0]);
-	image.y = Number(cfg[98][0]);
+  var image: Bitmap = new Bitmap(e.target.content.bitmapData);
+  image.x = Number(cfg[97][0]);
+  image.y = Number(cfg[98][0]);
   // image.width = cfg[99][0];
   // image.height = cfg[100][0];
   image.scaleX = Number(cfg[99][0])/image.width;
@@ -350,9 +360,9 @@ function iconLoaded(e: Event): void {
   image.alpha=0;
   image.addEventListener(Event.ENTER_FRAME, fadein);
 
-	if(Icon.numChildren > 0) {
+  if(Icon.numChildren > 0) {
     Icon.getChildAt(0).addEventListener(Event.ENTER_FRAME, fadeout);
-	}
+  }
 
 
 if(cfg[99][1]=="1"){ // 裁圆形
@@ -366,9 +376,10 @@ if(cfg[99][1]=="1"){ // 裁圆形
   image.mask = maskCircle;
 }
 
-	Icon.addChild(image);
+  Icon.addChild(image);
 
 }
+
 
 
 
