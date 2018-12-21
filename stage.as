@@ -209,19 +209,24 @@ function movie(event: Event): void {
 		rk = RKcon.getChildAt(i) as rankBar;
 		j = rk.n;
 		if(T < da.length - 1) {
-      if(cfg[13][0]=="2"){ // 关掉线性补间，使用变速缓冲
-        po = rk.po + (da[T][j]-rk.po)/Number(cfg[8][0]);
-      }else if(cfg[13][0]=="3"){
-        po = rk.po + (da[T+1][j]-rk.po)/Number(cfg[8][0]);
+
+      if(rk.rank >= int(cfg[13][1]) && rk.rank <= int(cfg[13][2]) ){
+        if(cfg[13][0]=="2"){ // 关掉线性补间，使用变速缓冲
+          po = rk.po + (da[T][j]-rk.po)/Number(cfg[8][0]);
+        }else if(cfg[13][0]=="3"){
+          po = rk.po + (da[T+1][j]-rk.po)/Number(cfg[8][0]);
+        }else{
+          po = da[T][j] * (1 - tres/fp) + da[T + 1][j] * tres/fp; // 线性补间
+        }
       }else{
-        po = da[T][j] * (1 - tres/fp) + da[T + 1][j] * tres/fp; // 线性补间
+        po = rk.po + (da[T][j]-rk.po)/Number(cfg[8][0]);
       }
 			rk.update(po);
 		}
 	}
 
   var RKmax = RKcon.numChildren-1;
-if(t%2==1){ // 每2帧更新次排序节省计算量…
+if(t%int(cfg[14][0])==1){ // 每2帧更新次排序节省计算量…
   // 冒泡排序法（反转，最大的放最上层
   for(i = RKmax; i >= 0; i--) {
     bar1 = RKcon.getChildAt(i) as rankBar;
@@ -272,7 +277,7 @@ if(t%2==1){ // 每2帧更新次排序节省计算量…
   // 冠军条
   yeart.x += Number(cfg[78][0]);
   current.x += Number(cfg[78][1]);
-  Tcon.x-=Number(cfg[78][1]);
+  Tcon.x -= Number(cfg[78][2]);
   if(t % int(cfg[81][0]) == 0) {
 		rect.graphics.beginFill(bar1.col);
 		rect.graphics.drawRect(current.x - wid, current.y + 75-userheight(bar1), wid, userheight(bar1));
