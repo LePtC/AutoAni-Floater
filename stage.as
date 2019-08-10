@@ -415,7 +415,7 @@ function bkgLoaded(e: Event): void {
 function checkfloater(curtime:String):void{
 
   for(i = 0; i < fda.length; i++) {
-    if(fda[i][0]==curtime){
+    if(fda[i][0].slice(0,10)==curtime.slice(0,10)){
       rk = RKcon.getChildByName(fda[i][1]) as rankBar;
       if(rk is rankBar){
       rk.popf(fda[i][2],Number(fda[i][3]),fda[i][4])};
