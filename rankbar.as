@@ -128,7 +128,7 @@ function update(poi: Number): void {
 	tarA = news / cfg[69][0];
 
 
-	cvalue.text = cfg[38][0] + fan.toFixed(int(cfg[37][0])).toString() + cfg[39][0];
+  cvalue.text = cfg[38][0] + commaNum(fan.toFixed(int(cfg[37][0])).toString()) + cfg[39][0];
 	cvalue.setTextFormat(format1);
 
 	rank1.text = (rank + 1).toString(); //+ "."
@@ -266,4 +266,22 @@ function fadeout(event: Event): void {
     ftimer=0;
 		event.target.removeEventListener(Event.ENTER_FRAME, fadeout);
 	}
+}
+
+
+
+
+
+
+function commaNum(largeNumber:String):String {
+
+  if(cfg[42][0]!="3"){return(largeNumber)}
+
+  var fAr:Array=largeNumber.split(".");
+  var reg:RegExp=/\d{1,3}(?=(\d{3})+(?!\d))/;
+
+  while(reg.test(fAr[0]))
+  fAr[0]=fAr[0].replace(reg,"$&,");
+  var res:String=fAr.join(".");
+  return(res);
 }
